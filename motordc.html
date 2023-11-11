@@ -1,4 +1,24 @@
 <!DOCTYPE html>
+<!-- En motordc.html -->
+<script>
+    function enviarPorcentaje() {
+        var porcentaje = document.getElementById('porcentajeInput').value;
+
+        // Realizar una llamada AJAX a la API en la Raspberry Pi
+        // Puedes usar la función fetch o jQuery.ajax para esto
+        fetch('http://direccion-de-tu-raspberry-pi/api/controlar_motor_dc', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ porcentaje: porcentaje }),
+        })
+        .then(response => response.json())
+        .then(data => console.log('Respuesta del servidor:', data))
+        .catch(error => console.error('Error:', error));
+    }
+</script>
+
 <html lang="es">
 <head>
     <meta charset="UTF-8">

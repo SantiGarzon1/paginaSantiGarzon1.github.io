@@ -1,4 +1,24 @@
 <!DOCTYPE html>
+<!-- En servomotor.html -->
+<script>
+    function enviarAngulo() {
+        var angulo = document.getElementById('anguloInput').value;
+
+        // Realizar una llamada AJAX a la API en la Raspberry Pi
+        // Puedes usar la función fetch o jQuery.ajax para esto
+        fetch('http://direccion-de-tu-raspberry-pi/api/controlar_servo', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ angulo: angulo }),
+        })
+        .then(response => response.json())
+        .then(data => console.log('Respuesta del servidor:', data))
+        .catch(error => console.error('Error:', error));
+    }
+</script>
+
 <html lang="es">
 <head>
     <meta charset="UTF-8">

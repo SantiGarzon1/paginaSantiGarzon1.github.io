@@ -4,18 +4,41 @@
     function enviarAngulo() {
         var angulo = document.getElementById('anguloInput').value;
 
-        // Realizar una llamada AJAX a la API en la Raspberry Pi
-        // Puedes usar la función fetch o jQuery.ajax para esto
-        fetch('http://direccion-de-tu-raspberry-pi/api/controlar_servo', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ angulo: angulo }),
-        })
-        .then(response => response.json())
-        .then(data => console.log('Respuesta del servidor:', data))
-        .catch(error => console.error('Error:', error));
+        // Validar que el ángulo esté dentro del rango permitido (0 a 180)
+        if (angulo >= 0 && angulo <= 180) {
+            // Realizar una llamada AJAX a la API en la Raspberry Pi
+            fetch('http://direccion-de-tu-raspberry-pi:8080/api/controlar_servo', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ angulo: angulo }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Respuesta del servidor:', data);
+                // Agregar una actualización visual o mensaje al usuario según sea necesario
+                actualizarInterfazUsuario(angulo);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                // Mostrar un mensaje al usuario indicando que ocurrió un error
+                mostrarMensajeError('Ocurrió un error al enviar el ángulo.');
+            });
+        } else {
+            // Mostrar un mensaje al usuario indicando que el ángulo no está en el rango permitido
+            mostrarMensajeError('Ingrese un ángulo válido (entre 0 y 180 grados).');
+        }
+    }
+
+    function mostrarMensajeError(mensaje) {
+        // Puedes personalizar esta función para mostrar mensajes de error al usuario
+        alert(mensaje);
+    }
+
+    function actualizarInterfazUsuario(angulo) {
+        // Puedes agregar aquí la lógica para actualizar la interfaz de usuario según la respuesta del servidor
+        console.log('Interfaz de usuario actualizada para el ángulo:', angulo);
     }
 </script>
 
@@ -56,5 +79,6 @@
     <label for="anguloInput">Ingrese un ángulo de 0 a 180:</label>
     <input type="number" id="anguloInput" min="0" max="180">
     <button onclick="enviarAngulo()">Enviar</button>
+
 </body>
 </html>

@@ -3,6 +3,15 @@
 <script>
     function enviarPorcentaje() {
         var porcentaje = document.getElementById('porcentajeInput').value;
+        var direccion;
+
+        // Obtener la dirección seleccionada
+        var direccionAdelante = document.getElementById('adelanteRadio');
+        if (direccionAdelante.checked) {
+            direccion = 'adelante';
+        } else {
+            direccion = 'atras';
+        }
 
         // Realizar una llamada AJAX a la API en la Raspberry Pi
         // Puedes usar la función fetch o jQuery.ajax para esto
@@ -11,7 +20,7 @@
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ porcentaje: porcentaje }),
+            body: JSON.stringify({ porcentaje: porcentaje, direccion: direccion }),
         })
         .then(response => response.json())
         .then(data => console.log('Respuesta del servidor:', data))
@@ -55,14 +64,34 @@
 
     <label for="porcentajeInput">Ingrese un porcentaje del 0 al 100:</label>
     <input type="number" id="porcentajeInput" min="0" max="100">
+
+    <label for="adelanteRadio">Dirección: </label>
+    <input type="radio" id="adelanteRadio" name="direccion" value="adelante" checked>
+    <label for="adelanteRadio">Adelante</label>
+
+    <input type="radio" id="atrasRadio" name="direccion" value="atras">
+    <label for="atrasRadio">Atrás</label>
+
     <button onclick="enviarPorcentaje()">Enviar</button>
 
     <script>
         function enviarPorcentaje() {
             var porcentaje = document.getElementById('porcentajeInput').value;
-            // Aquí puedes agregar la lógica para enviar el porcentaje al servidor o realizar alguna acción
+            var direccion;
+
+            // Obtener la dirección seleccionada
+            var direccionAdelante = document.getElementById('adelanteRadio');
+            if (direccionAdelante.checked) {
+                direccion = 'adelante';
+            } else {
+                direccion = 'atras';
+            }
+
+            // Aquí puedes agregar la lógica para enviar el porcentaje y dirección al servidor o realizar alguna acción
             console.log('Porcentaje enviado:', porcentaje);
+            console.log('Dirección seleccionada:', direccion);
         }
     </script>
 </body>
 </html>
+

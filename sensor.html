@@ -1,18 +1,4 @@
 <!DOCTYPE html>
-<!-- En sensor.html -->
-<script>
-    function leerSensor() {
-        // Realizar una llamada AJAX a la API en la Raspberry Pi
-        // Puedes usar la función fetch o jQuery.ajax para esto
-        fetch('http://direccion-de-tu-raspberry-pi/api/leer_sensor')
-        .then(response => response.json())
-        .then(data => {
-            document.getElementById('lecturaSensor').innerText = 'Valor del sensor: ' + data.valor;
-        })
-        .catch(error => console.error('Error:', error));
-    }
-</script>
-
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -38,11 +24,20 @@
     <p id="lecturaSensor">Valor del sensor: </p>
 
     <script>
-        // Simulación de lectura de un sensor con actualización constante
-        setInterval(function () {
-            var valorSensor = Math.random() * 100; // Valor aleatorio entre 0 y 100
-            document.getElementById('lecturaSensor').innerText = 'Valor del sensor: ' + valorSensor.toFixed(2);
-        }, 1000); // Actualiza cada 1000 milisegundos (1 segundo)
+        function leerSensor() {
+            // Realizar una llamada AJAX a la API en la Raspberry Pi
+            // Puedes usar la función fetch o jQuery.ajax para esto
+            fetch('http://direccion-de-tu-raspberry-pi:5000/api/leer_sensor')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('lecturaSensor').innerText = 'Valor del sensor: ' + data.valor;
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        // Llamar a la función inicialmente y luego actualizar cada segundo
+        leerSensor();
+        setInterval(leerSensor, 1000); // Actualiza cada 1000 milisegundos (1 segundo)
     </script>
 </body>
 </html>

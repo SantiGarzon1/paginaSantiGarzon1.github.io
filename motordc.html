@@ -59,7 +59,7 @@
             }
 
             // Realizar una llamada AJAX a la API en la Raspberry Pi
-            fetch('http://192.168.1.13/api/controlar_motor_dc', {
+            fetch('http://192.168.1.13:5050/api/controlar_motor_dc', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

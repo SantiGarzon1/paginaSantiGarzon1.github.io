@@ -66,11 +66,22 @@
                 },
                 body: JSON.stringify({ porcentaje: porcentaje, direccion: direccion }),
             })
-            .then(response => response.json())
-            .then(data => console.log('Respuesta del servidor:', data))
-            .catch(error => console.error('Error:', error));
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('No se pudo enviar el dato.');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Respuesta del servidor:', data);
+                // Puedes agregar aquí la lógica para actualizar la interfaz de usuario según la respuesta del servidor
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                // Mostrar un mensaje de advertencia al usuario indicando que no se pudo enviar el dato
+                alert('Advertencia: No se pudo enviar el dato.');
+            });
         }
     </script>
 </body>
 </html>
-

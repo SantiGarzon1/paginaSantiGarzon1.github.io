@@ -7,7 +7,7 @@
         // Validar que el ángulo esté dentro del rango permitido (0 a 180)
         if (angulo >= 0 && angulo <= 180) {
             // Realizar una llamada AJAX a la API en la Raspberry Pi
-            fetch('http://192.168.1.10:5050/api/controlar_servo', {
+            fetch('http://192.168.1.10:8080/api/controlar_servo', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

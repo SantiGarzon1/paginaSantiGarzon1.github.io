@@ -27,7 +27,7 @@
         function leerSensor() {
             // Realizar una llamada AJAX a la API en la Raspberry Pi
             // Puedes usar la función fetch o jQuery.ajax para esto
-            fetch('http://192.168.1.10:8080/api/leer_sensor')
+            fetch('http://191.95.164.195:8080/api/leer_sensor')
             .then(response => response.json())
             .then(data => {
                 document.getElementById('lecturaSensor').innerText = 'Valor del sensor: ' + data.valor;
